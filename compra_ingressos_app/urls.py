@@ -2,7 +2,6 @@ from django.urls import path
 #importa as funções de controle (controllers em MVC) que em django estão no views.py
 from compra_ingressos_app import views
 
-
 #No Django, a configuração de URLs é feita por meio de um sistema de roteamento que mapeia URLs (endereços web) para views (funções ou controladores que processam as requisições). 
 #O arquivo de configuração de URLs em Django é geralmente o urls.py, onde você define as rotas para a aplicação.
 #A configuração de path nas URLs é feita utilizando a função path() (ou re_path() em casos mais avançados). 
@@ -14,7 +13,10 @@ urlpatterns = [
     #a URL vazia "", será associada à função (controlador) 'home' no views.py. A chamada a essa função é views.home.
     #O name='home' serve para dar um nome à URL, o que facilita sua referência em templates e em redirecionamentos.
     path("", views.home, name="home"),
-    path("compraIngresso/", views.comprarIngresso, name="comprarIngresso")
+
+    path("novoJogo/", views.novoJogo, name="novoJogo"),
+    path("compraIngresso/", views.comprarIngresso, name="comprarIngresso"),
+
    
     #a URL "consultarCliente/", será associada à função (controlador) consultarCliente no views.py. 
     # A chamada a essa função é views.consultarCliente
