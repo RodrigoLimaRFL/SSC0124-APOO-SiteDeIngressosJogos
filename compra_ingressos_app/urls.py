@@ -14,6 +14,7 @@ urlpatterns = [
     #a URL vazia "", será associada à função (controlador) 'home' no views.py. A chamada a essa função é views.home.
     #O name='home' serve para dar um nome à URL, o que facilita sua referência em templates e em redirecionamentos.
     path("", views.home, name="home"),
+    path("compraIngresso/", views.comprarIngresso, name="comprarIngresso")
    
     #a URL "consultarCliente/", será associada à função (controlador) consultarCliente no views.py. 
     # A chamada a essa função é views.consultarCliente
