@@ -1,0 +1,27 @@
+{% extends "compra_ingressos/layout.html" %}
+{% block title %}
+Inserir Jogo
+{% endblock %}
+{% block content %}
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form method="POST" class="inserirJogo-form" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>Insira as informações do jogo:</p>
+    <br>
+    <label>Clube de Casa:</label> <input type="text" id="clubeCasa" name="clubeCasa" value = {{ jogo.clubeCasa }} > <br><br>
+    <label>Clube Visitante:</label> <input type="text" id="clubeFora" name="clubeFora"value = {{ jogo.clubeFora }} > <br><br>
+    <label>Data:</label> <input type="date" id="data" name="data" value = {{ jogo.data }} > <br><br>
+    <label>Hora:</label> <input type="time" id="hora" name="hora" value = {{ jogo.hora }} > <br><br>
+    <label>Estádio:</label> <input type="text" id="estadio" name="estadio" value = {{ jogo.estadio }} > <br><br>
+    <label>Preço:</label> <input type="number" id="preco" name="preco" value = {{ jogo.preco }} > <br><br>
+    <label>Número de Cadeiras:</label> <input type="number" id="numero_cadeiras" name="numero_cadeiras" value = {{ jogo.numero_cadeiras }} > <br><br>
+    <br><br>
+    <button type="submit" class="save btn btn-default">Enviar Informações do Jogo Novo</button>
+</form>
+
+<section>
+    <p type="text" id="resposta" name="resposta"> {{ resposta }} </p> <br><br>
+</section>
+{% endblock %}
