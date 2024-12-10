@@ -22,10 +22,19 @@ Este repositório consiste na aplicação prática do projeto desenvolvido em au
 <li> Instalar Python </li>
   Instale python a partir deste link: https://www.python.org/downloads/
 <li> Criar ambiente virtual </li>
-  Se necessario
+  Se necessario 
   ```
   sudo apt-get install python3-venv
+   ```<br>
+  Depois, criar de fato o venv 
    ```
+  python3 -m venv .venv
+   ```<br>
+  Para ativar 
+   ```
+  source .venv/bin/activate
+   ```<br>
+  Por fim, selecionar na paleta de comandos o interprete Python ./venv
 <li> Instalar Django </li>
   Rode no terminal
   ```
@@ -37,6 +46,10 @@ Este repositório consiste na aplicação prática do projeto desenvolvido em au
 git clone https://github.com/RodrigoLimaRFL/SSC0124-APOO-SiteDeIngressosJogos
 cd SSC0124-APOO-SiteDeIngressosJogos
 ```
+<li> Instalar o setuptools </li>
+  ```
+  pip install setuptools
+  ```
 <li> Rode o Servidor</li>
   ```
 python manage.py runserver
