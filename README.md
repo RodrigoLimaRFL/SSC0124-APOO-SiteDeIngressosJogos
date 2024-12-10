@@ -21,6 +21,11 @@ Este repositório consiste na aplicação prática do projeto desenvolvido em au
 <ol>
 <li> Instalar Python </li>
   Instale python a partir deste link: https://www.python.org/downloads/
+<li> Criar ambiente virtual </li>
+  Se necessario
+  ```
+  sudo apt-get install python3-venv
+   ```
 <li> Instalar Django </li>
   Rode no terminal
   ```
