@@ -9,18 +9,10 @@ from django.utils import timezone
 #importações dos modelos (classes) necessários para o UC Abrir Conta
 #from compra_ingressos_app.models import usuario, jogo
 
-# Post => envio dados para acesso BD
-# Get => envio dados sem acesso ao BD
+# Recupera a lista de todos os jogos e 
 def comprarIngresso(request):
-    if request.method == "POST":
-        idJogo = request.POST['idJogo']
+    if request.method == "GET":
+        jogos = Jogo.objects.all()
 
-        jogo = ConsultarJogo(idJogo)
-
-        if(jogo):
-            return redirect('', idJogo = jogo.idJogo)
-        else:
-            return redirect("buscarJogo")
-
-    else:
-        return render(request, "compra_ingressos/compraIngresso.html")
+        return render(request, "compra_ingresso/compraIngresso.html", {'jogos':jogos})
+            

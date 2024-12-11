@@ -1,13 +1,25 @@
 {% extends "compra_ingressos/layout.html" %}
+
 {% block title %}
-
+Comprar Ingressos
 {% endblock %}
+
 {% block content %}
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
-
-
-<section>
-    <p type="text" id="resposta" name="resposta"> {{ resposta }} </p> <br><br>
-</section>
+<h3>Jogos Disponíveis para Compra</h3>
+<br>
+{% if jogos %}
+    <ul>
+        {% for jogo in jogos %}
+            <li>
+                <strong>{{ jogo.titulo }}</strong><br>
+                Data: {{ jogo.data|date:"d/m/Y H:i" }}<br>
+                Local: {{ jogo.local }}<br>
+                Preço: R$ {{ jogo.preco }}
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Não há jogos disponíveis no momento.</p>
+{% endif %}
 {% endblock %}
