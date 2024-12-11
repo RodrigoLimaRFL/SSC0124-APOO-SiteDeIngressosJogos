@@ -8,6 +8,52 @@ import datetime
 
 # As classes do modelo do sistema são definidas neste arquivo  models.py
 
+class Jogo(models.Model):
+    clubeCasa = models.CharField(max_length = 100)
+    clubeFora = models.CharField(max_length = 100)
+    data = models.DateField()
+    hora = models.TimeField()
+    preco = models.DecimalField(max_digits=10, decimal_places=2)
+    estadio = models.CharField(max_length = 100)
+    numero_cadeiras = models.IntegerField()
+
+    # Métodos da classe
+
+    def registrarJogo(self):
+        #salvar no banco de dados
+        self.save()
+
+
+class Clube(models.Model):
+    nomeClube = models.CharField(max_length=100)
+    divisao = models.CharField(max_length=1)
+    cidadeOrigem = models.CharField(max_length=100)
+
+    # Métodos da classe
+
+    def registrarClube(self):
+        #salvar no banco de dados
+        self.save()
+
+class Usuario(models.Model):
+    nome = models.CharField(max_length=100)
+    cpf = models.CharField( unique = True, max_length=11)
+    dateNasc = models.DateField()
+    telefone = models.CharField(max_length=13) #format (61)992831235
+    email = models.CharField(max_length=100)
+    senha = models.CharField(max_length=100)
+
+    # Métodos da classe
+
+    def registrarUser(self):
+        #salvar no banco de dados
+        self.save()
+
+
+
+
+
+
 # ****** Definição da classe PessoaFisica
 class PessoaFisica(models.Model):
     #lista de atributos com os tipos que deverão ser armazenados no banco

@@ -1,5 +1,4 @@
 {% extends "compra_ingressos/layout.html" %}
-
 {% block title %}
 Comprar Ingressos
 {% endblock %}
@@ -11,10 +10,13 @@ Comprar Ingressos
     <ul>
         {% for jogo in jogos %}
             <li>
-                <strong>{{ jogo.titulo }}</strong><br>
-                Data: {{ jogo.data|date:"d/m/Y H:i" }}<br>
+                <strong>{{ jogo.clubeCasa }}, {{jogo.clubeFora}}</strong><br>
+                Data: {{ jogo.data }}<br>
+                Horário: {{ jogo.hora }}
                 Local: {{ jogo.local }}<br>
-                Preço: R$ {{ jogo.preco }}
+                Preço: R$ {{ jogo.preco }}<br>
+                Estadio: {{jogo.estadio}}<br>
+                Cadeiras: {{jogo.numero_cadeiras}}
             </li>
             <hr>
         {% endfor %}

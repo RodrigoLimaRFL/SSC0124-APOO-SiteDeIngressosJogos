@@ -8,9 +8,9 @@ from django.utils import timezone
 
 #importações dos modelos (classes) necessários para o UC Abrir Conta
 from compra_ingressos_app.models import contaComum, PessoaFisica, movimento
-from compra_ingressos_app.codigo.comprar_jogo import comprarIngresso
-
 from compra_ingressos_app.codigo.inserirJogo import novoJogo
+from compra_ingressos_app.codigo.realizarLogin import RealizarLogin
+from compra_ingressos_app.codigo.comprar_jogo import comprarIngresso
 
 #a seguir são definidas as funções que possuem lógica dos controladores no padrão MVC
 
@@ -19,32 +19,6 @@ def home(request):
     #método executado quando o usuário está na interface inicial do sistema. 
     #Envia-se uma solicitação de renderização da interface home.html
     return render(request, "compra_ingressos/home.html")
-
-def RealizarLogin(request):
-    if request.method == "POST":
-        cpf = request.POST['cpfPessoa']
-        senha = request.POST['senha']
-
-        print(cpf)
-        usuario = consultarCpfCliente(cpf)
-
-        if(usuario):
-            if(senha == usuario.GetSenha()):
-                redirect("teste")
-            else:
-                redirect("RealizarLogin")
-        else:
-            redirect("criarConta")
-    else:
-        return render(request, "compra_ingressos/login.html")
-    
-def consultarCpfCliente(cpf):
-    cliente = PessoaFisica.consultarCpf(cpf) # Retorna o objeto pessoa se for achado
-
-    if(cliente):
-       return cliente
-    else:
-        return False
 
 '''
 #função consultarCliente
