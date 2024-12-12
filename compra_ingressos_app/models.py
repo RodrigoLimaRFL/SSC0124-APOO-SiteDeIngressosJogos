@@ -23,6 +23,13 @@ class Jogo(models.Model):
         #salvar no banco de dados
         self.save()
 
+    def recuperarJogo(clube):
+        try:
+            jogo = Jogo.objects.get(clubeCasa = clube)
+            return jogo
+        except ObjectDoesNotExist:
+            return False
+
 
 class Clube(models.Model):
     nomeClube = models.CharField(max_length=100)

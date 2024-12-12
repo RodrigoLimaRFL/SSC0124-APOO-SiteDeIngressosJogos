@@ -1,0 +1,19 @@
+{% extends "compra_ingressos/layout.html" %}
+
+{% block title %}
+Confirmação da Compra
+{% endblock %}
+
+{% block content %}
+<h2>Compra Confirmada!</h2>
+<p>Obrigado por comprar conosco! Aqui estão os detalhes da sua compra:</p>
+
+<div>
+    <h3>Detalhes da Compra</h3>
+    <ul>
+        <li><strong>Jogo:</strong> {{ compra.jogo }}</li>
+        <li><strong>Preço Total:</strong> R$ {{ compra.precoFinal }}</li>
+        <li><strong>Data da Compra:</strong> {{ compra.dataCompra }}</li>
+        <li><strong>Horário da Compra:</strong> {{ compra.horarioCompra }}</li>
+    </ul>
+</div>
