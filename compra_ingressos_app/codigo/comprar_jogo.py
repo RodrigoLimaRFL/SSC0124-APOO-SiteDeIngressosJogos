@@ -11,9 +11,12 @@ from compra_ingressos_app.models import Jogo, Usuario
 def comprarIngresso(request):
     if request.method == "GET":
         jogos = Jogo.recuperarJogo(clube = "Vasco")
+        context = {
+            "jogos": jogos
+        }
         #jogos = Jogo.objects.all()
 
-        return render(request, "compra_ingressos/compraIngresso.html", jogos)
+        return render(request, "compra_ingressos/compraIngresso.html", context)
 
 '''def confirmarCompra(request, Jogo, Preco):
     data_compra = datetime.now().date()
