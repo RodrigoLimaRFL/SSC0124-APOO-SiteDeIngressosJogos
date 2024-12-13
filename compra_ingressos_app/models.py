@@ -6,7 +6,6 @@ from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 import datetime
 
-# As classes do modelo do sistema são definidas neste arquivo  models.py
 
 class Jogo(models.Model):
     clubeCasa = models.CharField(max_length = 100)
@@ -71,11 +70,6 @@ class RegistroCompra(models.Model):
 
     def salvarRegistro(self):
         self.save()
-
-
-
-
-
 
 # ****** Definição da classe PessoaFisica
 class PessoaFisica(models.Model):
