@@ -63,5 +63,9 @@
 
 <pre><code>sudo apt install sqlitebrowser</code></pre>
 
+<p>
+    Com isso, basta abrir o arquivo db.sqlite3 com esse software.
+</p>
+
 </body>
 </html>
