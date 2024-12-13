@@ -59,9 +59,9 @@
 
 <p>
     Para visualização dos dados adicionados ao banco de dados em tempo real, é necessário instalar o programa DB Browser para SQLite. Isso pode ser feito pelo seguinte comando:
-
-    <pre><code>sudo apt install sqlitebrowser</code></pre>
 </p>
+
+<pre><code>sudo apt install sqlitebrowser</code></pre>
 
 </body>
 </html>
