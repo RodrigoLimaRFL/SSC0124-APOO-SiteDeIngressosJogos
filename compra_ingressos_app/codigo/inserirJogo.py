@@ -6,6 +6,9 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.utils import timezone
 
+from compra_ingressos_app.models import Jogo
+
+
 #from compra_ingressos_app.models import Jogo
 
 def novoJogo(request):
@@ -47,6 +50,9 @@ def novoJogo(request):
         context = {
             'resposta': mensagem
         }
+
+        jogo = Jogo(clubeCasa = clubeCasa, clubeFora = clubeFora, data = data, hora = hora, preco = preco, estadio = estadio, numero_cadeiras = numero_cadeiras)
+        jogo.registrarJogo()
 
         return render(request, "compra_ingressos/novoJogo.html", context)
     else:

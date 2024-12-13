@@ -10,10 +10,10 @@ Comprar Ingressos
     <ul>
         {% for jogo in jogos %}
             <li>
-                <strong>{{ jogo.clubeCasa }}, {{jogo.clubeFora}}</strong><br>
+                <strong>{{ jogo.clubeCasa }} X {{jogo.clubeFora}}</strong><br>
+                Id: {{jogo.id}}<br>
                 Data: {{ jogo.data }}<br>
-                Horário: {{ jogo.hora }}
-                Local: {{ jogo.local }}<br>
+                Horário: {{ jogo.hora }}<br>
                 Preço: R$ {{ jogo.preco }}<br>
                 Estadio: {{jogo.estadio}}<br>
                 Cadeiras: {{jogo.numero_cadeiras}}

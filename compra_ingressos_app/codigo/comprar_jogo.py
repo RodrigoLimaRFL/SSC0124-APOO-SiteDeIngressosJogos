@@ -10,11 +10,11 @@ from compra_ingressos_app.models import Jogo, Usuario
 # Recupera a lista de todos os jogos e mostra na página
 def comprarIngresso(request):
     if request.method == "GET":
-        jogos = Jogo.recuperarJogo(clube = "Vasco")
+        jogos = Jogo.objects.all()
+        #jogos = Jogo.recuperarJogo(clube = 'Vasco')
         context = {
             "jogos": jogos
         }
-        #jogos = Jogo.objects.all()
 
         return render(request, "compra_ingressos/compraIngresso.html", context)
 
