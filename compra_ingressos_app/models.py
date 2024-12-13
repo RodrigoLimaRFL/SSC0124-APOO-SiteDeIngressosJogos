@@ -30,6 +30,13 @@ class Jogo(models.Model):
         except ObjectDoesNotExist:
             return False
 
+    def recuperarID(id):
+        try:
+            jogo = Jogo.objects.get(id = id)
+            return jogo
+        except ObjectDoesNotExist:
+            return False
+
 
 class Clube(models.Model):
     nomeClube = models.CharField(max_length=100)
@@ -54,6 +61,15 @@ class Usuario(models.Model):
 
     def registrarUser(self):
         #salvar no banco de dados
+        self.save()
+
+class RegistroCompra(models.Model):
+    dataRegistro = models.DateField()
+    horaRegistro = models.TimeField()
+    jogoCompra = models.ForeignKey(Jogo, on_delete=models.CASCADE)
+    precoCompra = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def salvarRegistro(self):
         self.save()
 
 

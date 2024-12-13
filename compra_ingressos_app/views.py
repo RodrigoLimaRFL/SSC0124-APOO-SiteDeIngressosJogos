@@ -6,11 +6,11 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.utils import timezone
 
-#importações dos modelos (classes) necessários para o UC Abrir Conta
 from compra_ingressos_app.models import contaComum, PessoaFisica, movimento
 from compra_ingressos_app.codigo.inserirJogo import novoJogo
 from compra_ingressos_app.codigo.realizarLogin import RealizarLogin
 from compra_ingressos_app.codigo.comprar_jogo import comprarIngresso
+
 
 #a seguir são definidas as funções que possuem lógica dos controladores no padrão MVC
 
