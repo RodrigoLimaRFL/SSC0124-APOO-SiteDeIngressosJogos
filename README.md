@@ -55,12 +55,13 @@
         </li>
     </ol>
 
-    <h2>Banco de Dados</h2>
+<h2>Banco de Dados</h2>
 
-    <p>
-        Para visualização dos dados adicionados ao banco de dados em tempo real, é necessário instalar o programa DB Browser para SQLite. Isso pode ser feito pelo seguinte comando:
+<p>
+    Para visualização dos dados adicionados ao banco de dados em tempo real, é necessário instalar o programa DB Browser para SQLite. Isso pode ser feito pelo seguinte comando:
 
-        <pre><code>sudo apt install sqlitebrowser</code></pre>
-    </p>
+    <pre><code>sudo apt install sqlitebrowser</code></pre>
+</p>
+
 </body>
 </html>
