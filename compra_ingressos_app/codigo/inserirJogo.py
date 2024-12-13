@@ -9,8 +9,6 @@ from django.utils import timezone
 from compra_ingressos_app.models import Jogo
 
 
-#from compra_ingressos_app.models import Jogo
-
 def novoJogo(request):
     if request.method == 'POST':
         clubeCasa = request.POST['clubeCasa']
