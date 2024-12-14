@@ -4,38 +4,8 @@ from django.db import models
 from django.forms import CharField, Field
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ValidationError
 import datetime
-
-
-class Jogo(models.Model):
-    clubeCasa = models.CharField(max_length = 100)
-    clubeFora = models.CharField(max_length = 100)
-    data = models.DateField()
-    hora = models.TimeField()
-    preco = models.DecimalField(max_digits=10, decimal_places=2)
-    estadio = models.CharField(max_length = 100)
-    numero_cadeiras = models.IntegerField()
-
-    # Métodos da classe
-
-    def registrarJogo(self):
-        #salvar no banco de dados
-        self.save()
-
-    def recuperarJogo(clube):
-        try:
-            jogo = Jogo.objects.get(clubeCasa = clube)
-            return jogo
-        except ObjectDoesNotExist:
-            return False
-
-    def recuperarID(id):
-        try:
-            jogo = Jogo.objects.get(id = id)
-            return jogo
-        except ObjectDoesNotExist:
-            return False
-
 
 class Clube(models.Model):
     nomeClube = models.CharField(max_length=100)
@@ -48,19 +18,63 @@ class Clube(models.Model):
         #salvar no banco de dados
         self.save()
 
+#################################################################################################
+
+class Jogo(models.Model):
+    clubeCasa = models.ForeignKey(Clube, on_delete=models.CASCADE)
+    clubeFora = models.ForeignKey(Clube, on_delete=models.CASCADE)
+    data = models.DateField()
+    hora = models.TimeField()
+    preco = models.DecimalField(max_digits=10, decimal_places=2)
+    estadio = models.CharField(max_length = 100)
+    numero_cadeiras = models.IntegerField()
+
+    # Métodos da classe
+
+    def evitarRepeticao(self):
+        if self.clubeCasa == self.clubeFora:
+            raise ValidationError("Clube da casa e de fora não podem ser iguais.")
+
+    def registrarJogo(self):
+        self.evitarRepeticao()
+        #salvar no banco de dados
+        self.save()
+
+
+    @staticmethod
+    def recuperarJogo(clube):
+        try:
+            jogo = Jogo.objects.get(clubeCasa = clube)
+            return jogo
+        except ObjectDoesNotExist:
+            return False
+
+
+    @staticmethod
+    def recuperarID(id):
+        try:
+            jogo = Jogo.objects.get(id = id)
+            return jogo
+        except ObjectDoesNotExist:
+            return False
+        
+##############################################################################################
+
 class Usuario(models.Model):
     nome = models.CharField(max_length=100)
     cpf = models.CharField( unique = True, max_length=11)
     dateNasc = models.DateField()
     telefone = models.CharField(max_length=13) #format (61)992831235
-    email = models.CharField(max_length=100)
-    senha = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100)
+    senha = models.CharField(max_length=255)
 
     # Métodos da classe
 
     def registrarUser(self):
         #salvar no banco de dados
         self.save()
+
+############################################################################################
 
 class RegistroCompra(models.Model):
     dataRegistro = models.DateField()
@@ -70,6 +84,12 @@ class RegistroCompra(models.Model):
 
     def salvarRegistro(self):
         self.save()
+
+
+
+
+
+
 
 # ****** Definição da classe PessoaFisica
 class PessoaFisica(models.Model):
