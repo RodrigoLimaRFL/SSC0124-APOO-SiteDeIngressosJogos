@@ -1,0 +1,23 @@
+{% extends "compra_ingressos/layout.html" %}
+{% block title %}
+Interface de Criação de Conta
+{% endblock %}
+{% block content %}
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form method="POST" class="criarConta-form" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>Por favor ingressar os seus dados de login:</p>
+    <br>
+    <label>Nome:</label> <input type="text" id="nomePessoa" name="nomePessoa"> <br><br>
+    <label>Email:</label> <input type="text" id="emailPessoa" name="emailPessoa"> <br><br>
+    <label>CPF:</label> <input type="text" id="cpfPessoa" name="cpfPessoa"> <br><br>
+    <label>Data de Nascimento:</label> <input type="date" id="birthdate" name="birthdate"> <br><br>
+    <label>Número de Celular:</label> <input type="tel" id="telefonePessoa" name="telefonePessoa"> <br><br>
+    <label>Senha:</label> <input type="password" id="senhaConta" name="senhaConta"> <br><br>
+    <label>Confirmação de Senha:</label> <input type="password" id="senhaContaConfirm" name="senhaContaConfirm"> <br><br>
+    <br><br>
+    <button type="submit" class="save btn btn-default">Criar Conta</button>
+</form>
+{% endblock %}

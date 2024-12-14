@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.utils import timezone
 
 from compra_ingressos_app.codigo.inserirJogo import novoJogo
-from compra_ingressos_app.codigo.realizarLogin import realizarLogin
+from compra_ingressos_app.codigo.realizarLogin import realizarLogin, criarConta, consultarCpfCliente
 from compra_ingressos_app.codigo.comprar_jogo import comprarIngresso
 from compra_ingressos_app.codigo.inserirClube import novoClube
 
