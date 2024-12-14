@@ -5,30 +5,44 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.utils import timezone
-from compra_ingressos_app.models import Jogo, Usuario
+from compra_ingressos_app.models import Jogo, Usuario, RegistroCompra
 
-# Recupera a lista de todos os jogos e mostra na página
 def comprarIngresso(request):
+    # Obtém todos os jogos disponíveis para compra
+    jogos = Jogo.objects.all()
+
+    # Se GET, então exibe os jogos
     if request.method == "GET":
-        jogos = Jogo.objects.all()
-        #jogos = Jogo.recuperarJogo(clube = 'Vasco')
         context = {
             "jogos": jogos
         }
 
         return render(request, "compra_ingressos/compraIngresso.html", context)
+    
+    # Se POST, então realiza a compra com id fornecido pelo usuário
+    else:
+        idJogo = request.POST['id']
 
-'''def confirmarCompra(request, Jogo, Preco):
-    data_compra = datetime.now().date()
-    horario_compra = datetime.now().strftime('%H:%M:%S')
+        jogo = Jogo.recuperarID(idJogo)
 
-    compra = RegistroCompra(
-        dataCompra = data_compra,
-        horarioCompra = horario_compra,
-        jogo = Jogo,
-        precoFinal = Preco
-    )
+        momentoAtual = datetime.now()
 
-    compra.savarDados()
+        '''
+        
+        if Jogo.verificarReservaAssento():
+            return render()
+        '''
 
-    return render(request, "compra_ingressos/confirmaCompra.html", compra)'''
+        registro = RegistroCompra(dataRegistro = momentoAtual.date(), horaRegistro = momentoAtual.time(), jogoCompra = jogo, precoCompra = 50)
+        registro.salvarRegistro()
+
+        mensagem = '''
+            Jogo comprado com sucesso!
+        '''
+
+        context = {
+            'resposta': mensagem,
+            'jogos': jogos
+        }
+
+        return render(request, "compra_ingressos/compraIngresso.html", context)

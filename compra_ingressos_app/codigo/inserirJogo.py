@@ -5,19 +5,86 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.utils import timezone
+from django.core.exceptions import ObjectDoesNotExist
 
 from compra_ingressos_app.models import Jogo
+from compra_ingressos_app.models import Clube
 
 
 def novoJogo(request):
     if request.method == 'POST':
-        clubeCasa = request.POST['clubeCasa']
-        clubeFora = request.POST['clubeFora']
+        nomeClubeCasa = request.POST['clubeCasa']
+        nomeClubeFora = request.POST['clubeFora']
         data = request.POST['data']
         hora = request.POST['hora']
         preco = request.POST['preco']
         estadio = request.POST['estadio']
         numero_cadeiras = request.POST['numero_cadeiras']
+
+        try:
+            clubeCasa = Clube.objects.get(nomeClube=nomeClubeCasa) # busca o clube pelo nome no BD
+            clubeFora = Clube.objects.get(nomeClube=nomeClubeFora)
+
+            if clubeCasa == clubeFora:
+                mensagem = "O clube da casa não pode ser o mesmo que o clube de fora."
+                context = {'resposta': mensagem}
+                return render(request, "compra_ingressos/novoJogo.html", context)
+            
+            data = datetime.strptime(data, '%Y-%m-%d').date()  # 'YYYY-MM-DD' formato
+            hora = datetime.strptime(hora, '%H:%M').time()    # 'HH:MM' formato
+            preco = float(preco)  # Converte pra float
+            numero_cadeiras = int(numero_cadeiras)  # Converte pra int
+
+            '''jogo_existente = Jogo.objects.filter(
+                clubeCasa=clubeCasa,
+                clubeFora=clubeFora,
+                data=data,
+                hora=hora
+            ).exists()
+
+            if jogo_existente:
+                mensagem = "Jogo já cadastrado com os mesmos times e horário!"
+                context = {'resposta': mensagem}
+                return render(request, "compra_ingressos/novoJogo.html", context)'''
+            
+            jogo = Jogo(
+                clubeCasa=clubeCasa,
+                clubeFora=clubeFora,
+                data=data,
+                hora=hora,
+                preco=preco,
+                estadio=estadio,
+                numero_cadeiras=numero_cadeiras
+            )
+            jogo.registrarJogo()
+
+            mensagem = f'''
+                Jogo cadastrado com sucesso!
+                Clube Casa: {clubeCasa.nomeClube}
+                Clube Fora: {clubeFora.nomeClube}
+                Data: {data}    
+                Hora: {hora}
+                Preço: {preco}
+                Estádio: {estadio}
+                Número de cadeiras: {numero_cadeiras}
+            '''
+            context = {'resposta': mensagem}
+            return render(request, "compra_ingressos/novoJogo.html", context)
+        
+        except ObjectDoesNotExist:
+            # If a club name doesn't match any entry
+            mensagem = "Um dos clubes não existe. Verifique o nome dos clubes."
+            context = {'resposta': mensagem}
+            return render(request, "compra_ingressos/novoJogo.html", context)
+
+        except ValueError as e:
+            # Handle invalid data (e.g., incorrect date or number format)
+            mensagem = f"Erro ao cadastrar jogo: {e}. Por favor, verifique os dados inseridos."
+            context = {'resposta': mensagem}
+            return render(request, "compra_ingressos/novoJogo.html", context)
+        
+    else:
+        return render(request, "compra_ingressos/novoJogo.html")
 
         '''
         # Consulta a existencia do jogo (n implementado)
@@ -33,16 +100,16 @@ def novoJogo(request):
         jogo = Jogo(clubeCasa=clubeCasa, clubeFora=clubeFora, data=data, 
                     hora = hora, preco=preco, estadio=estadio, numero_cadeiras=numero_cadeiras)
         jogo.atualizarJogo()
-        '''
+        
         mensagem = f'''
-            Jogo cadastrado com sucesso!
-            Clube Casa: {clubeCasa}
-            Clube Fora: {clubeFora}
-            Data: {data}    
-            Hora: {hora}
-            Preço: {preco}
-            Estádio: {estadio}
-            Número de cadeiras: {numero_cadeiras}
+            #Jogo cadastrado com sucesso!
+            #Clube Casa: {nomeClubeCasa}
+            #Clube Fora: {nomeClubeFora}
+            #Data: {data}    
+            #Hora: {hora}
+            #Preço: {preco}
+            #Estádio: {estadio}
+            #Número de cadeiras: {numero_cadeiras}
         '''
 
         context = {
@@ -55,3 +122,4 @@ def novoJogo(request):
         return render(request, "compra_ingressos/novoJogo.html", context)
     else:
         return render(request, "compra_ingressos/novoJogo.html")
+        '''

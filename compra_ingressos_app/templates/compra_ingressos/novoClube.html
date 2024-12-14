@@ -1,0 +1,23 @@
+{% extends "compra_ingressos/layout.html" %}
+{% block title %}
+Inserir Clube
+{% endblock %}
+{% block content %}
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form method="POST" class="inserirClube-form" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>Insira as informações do jogo:</p>
+    <br>
+    <label>Nome do clube:</label> <input type="text" id="nomeClube" name="nomeClube" value = {{ clube.nomeClube }} > <br><br>
+    <label>Divisão do clube:</label> <input type="text" id="divisao" name="divisao"value = {{ clube.divisao }} > <br><br>
+    <label>Cidade de origem:</label> <input type="text" id="cidadeOrigem" name="cidadeOrigem" value = {{ clube.cidadeOrigem }} > <br><br>
+    <br><br>
+    <button type="submit" class="save btn btn-default">Enviar Informações do Clube Novo</button>
+</form>
+
+<section>
+    <p type="text" id="resposta" name="resposta"> {{ resposta }} </p> <br><br>
+</section>
+{% endblock %}
