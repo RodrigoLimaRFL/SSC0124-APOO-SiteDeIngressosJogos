@@ -8,7 +8,7 @@ from django.utils import timezone
 
 from compra_ingressos_app.models import contaComum, PessoaFisica, movimento
 
-def RealizarLogin(request):
+def realizarLogin(request):
     if request.method == "POST":
         cpf = request.POST['cpfPessoa']
         senha = request.POST['senha']
@@ -18,11 +18,11 @@ def RealizarLogin(request):
 
         if(usuario):
             if(senha == usuario.GetSenha()):
-                redirect("teste")
+                redirect("realizarLogin")
             else:
-                redirect("RealizarLogin")
+                redirect("realizarLogin")
         else:
-            redirect("criarConta")
+            redirect("realizarLogin")
     else:
         return render(request, "compra_ingressos/login.html")
     

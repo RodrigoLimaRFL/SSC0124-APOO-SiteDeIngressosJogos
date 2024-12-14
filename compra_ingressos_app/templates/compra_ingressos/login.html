@@ -7,7 +7,7 @@ Interface de Login
 <br>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form method="POST" class="RealizarLogin-form" action="">
+<form method="POST" class="realizarLogin-form" action="">
     {% csrf_token %}
     {{ form.as_p }}
     <p>Por favor ingressar os seus dados de login:</p>
