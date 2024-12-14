@@ -21,8 +21,15 @@ class Clube(models.Model):
 #################################################################################################
 
 class Jogo(models.Model):
-    clubeCasa = models.ForeignKey(Clube, on_delete=models.CASCADE)
-    clubeFora = models.ForeignKey(Clube, on_delete=models.CASCADE)
+    clubeCasa = models.ForeignKey(
+        Clube,
+        on_delete=models.CASCADE,
+        related_name='mandante'
+        )
+    clubeFora = models.ForeignKey(
+        Clube,
+        on_delete=models.CASCADE,
+        related_name='visitante')
     data = models.DateField()
     hora = models.TimeField()
     preco = models.DecimalField(max_digits=10, decimal_places=2)
