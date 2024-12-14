@@ -6,7 +6,6 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.utils import timezone
 
-from compra_ingressos_app.models import contaComum, PessoaFisica, movimento
 from compra_ingressos_app.codigo.inserirJogo import novoJogo
 from compra_ingressos_app.codigo.realizarLogin import RealizarLogin
 from compra_ingressos_app.codigo.comprar_jogo import comprarIngresso
