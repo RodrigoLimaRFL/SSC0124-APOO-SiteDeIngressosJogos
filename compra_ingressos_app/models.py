@@ -12,6 +12,9 @@ class Clube(models.Model):
     divisao = models.CharField(max_length=1)
     cidadeOrigem = models.CharField(max_length=100)
 
+    def __str__ (self):
+        return self.nomeClube
+
     # Métodos da classe
 
     def registrarClube(self):
