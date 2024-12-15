@@ -36,8 +36,8 @@ def consultarCpfCliente(cpf):
     else:
         return False
     
-def criarConta(request):
+'''def criarConta(request):
     if request.method == "POST":
         redirect("criarConta")
     else:
-        return render(request, "compra_ingressos/criarConta.html")
+        return render(request, "compra_ingressos/criarConta.html")'''
