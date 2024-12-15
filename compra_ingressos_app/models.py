@@ -55,29 +55,19 @@ class Jogo(models.Model):
         #salvar no banco de dados
         self.save()
 
-
     @staticmethod
-    def recuperarJogo(clube):
-        try:
-            jogo = Jogo.objects.get(clubeCasa = clube)
-            return jogo
-        except ObjectDoesNotExist:
-            return False
-
-
-    '''@staticmethod
     def recuperarID(id):
         try:
             jogo = Jogo.objects.get(id = id)
             return jogo
         except ObjectDoesNotExist:
-            return False'''
+            return False
         
 ##############################################################################################
 
 class Usuario(models.Model):
     nome = models.CharField(max_length=100)
-    cpf = models.CharField( unique = True, max_length=11)
+    cpf = models.CharField(unique = True, max_length=11) # Usado como id do usuário
     dateNasc = models.DateField()
     telefone = models.CharField(max_length=13) #format (61)992831235
     email = models.EmailField(max_length=100)
@@ -88,6 +78,13 @@ class Usuario(models.Model):
     def registrarUser(self):
         #salvar no banco de dados
         self.save()
+
+    def consultarCPF(cpf):
+        try:
+            usuario = Usuario.objects.get(cpf = cpf)
+            return usuario
+        except ObjectDoesNotExist:
+            return False
 
 ############################################################################################
 

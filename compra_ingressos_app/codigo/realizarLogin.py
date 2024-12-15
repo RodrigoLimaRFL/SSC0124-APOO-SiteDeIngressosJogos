@@ -6,7 +6,6 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.utils import timezone
 
-#from compra_ingressos_app.models import contaComum, PessoaFisica, movimento
 from compra_ingressos_app.models import Usuario
 
 def realizarLogin(request):
@@ -14,30 +13,28 @@ def realizarLogin(request):
         cpf = request.POST['cpfPessoa']
         senhaDigitada = request.POST['senhaConta']
 
-        print(cpf)
-        usuario = consultarCpfCliente(cpf)
+        usuario = Usuario.consultarCPF(cpf)
 
         if(usuario):
             senhaVerdadeira = usuario.senha
             if(senhaDigitada == senhaVerdadeira):
-                redirect("teste")
+                mensagem = '''
+                    Usuário Logado com sucesso!
+                '''
             else:
-                redirect("realizarLogin")
+                mensagem = '''
+                    Senha Errada. Tente Novamente!
+                '''
         else:
-            redirect("realizarLogin")
+            mensagem = '''
+                Usuário Inexistente!
+            '''
+        
+        context = {
+            'resposta': mensagem
+        }
+
+        return render(request, "compra_ingressos/login.html", context)
+        
     else:
         return render(request, "compra_ingressos/login.html")
-    
-def consultarCpfCliente(cpf):
-    cliente = Usuario.objects.get(cpf=cpf) # Retorna o objeto pessoa se for achado
-
-    if(cliente):
-       return cliente
-    else:
-        return False
-    
-'''def criarConta(request):
-    if request.method == "POST":
-        redirect("criarConta")
-    else:
-        return render(request, "compra_ingressos/criarConta.html")'''

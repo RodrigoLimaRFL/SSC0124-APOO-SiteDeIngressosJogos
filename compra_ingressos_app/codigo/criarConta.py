@@ -17,6 +17,17 @@ def criarConta(request):
         email = request.POST['emailPessoa']
         senha = request.POST['senhaConta']
 
+        if Usuario.consultarCPF(cpf):
+            mensagem = '''
+                Já existe um usuário com este CPF.
+            '''
+
+            context = {
+                'resposta': mensagem
+            }
+
+            return render(request, "compra_ingressos/criarConta.html", context)
+
         mensagem = f'''
             Usuário cadastrado com sucesso!
             Nome: {nome}

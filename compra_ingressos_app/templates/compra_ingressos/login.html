@@ -10,9 +10,13 @@ Interface de Login
     {{ form.as_p }}
     <p>Por favor ingressar os seus dados de login:</p>
     <br>
-    <label>Login:</label> <input type="text" id="cpfPessoa" name="cpfPessoa"> <br><br>
+    <label>Login (CPF):</label> <input type="text" id="cpfPessoa" name="cpfPessoa"> <br><br>
     <label>Senha:</label> <input type="password" id="senhaConta" name="senhaConta"> <br><br>
     <br><br>
     <button type="submit" class="save btn btn-default">Fazer Login</button>
 </form>
+
+<section>
+    <p type="text" id="resposta" name="resposta"> {{ resposta }} </p> <br><br>
+</section>
 {% endblock %}
