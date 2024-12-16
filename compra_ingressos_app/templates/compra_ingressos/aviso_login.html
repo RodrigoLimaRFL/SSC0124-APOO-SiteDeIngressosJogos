@@ -1,0 +1,11 @@
+{% extends "compra_ingressos/layout.html" %}
+
+{% block title %}
+Acesso Restrito
+{% endblock %}
+
+{% block content %}
+<h2>Acesso Restrito</h2>
+<p>Você precisa estar logado para acessar esta página.</p>
+<a href="{% url 'realizarLogin' %}" class="btn btn-primary">Fazer Login</a>
+{% endblock %}

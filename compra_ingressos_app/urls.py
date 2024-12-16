@@ -19,6 +19,9 @@ urlpatterns = [
     path("compraIngresso/", views.comprarIngresso, name="compraIngresso"),
     path("novoClube/", views.novoClube, name="novoClube"),
     path("criarConta/", views.criarConta, name="criarConta"),
+    path('logout/', views.logout_view, name='logout'),
+    path('aviso_login/', views.aviso_login, name='aviso_login'),
+    path('acesso_negado/', views.acesso_negado, name='acesso_negado'),
    
     #a URL "consultarCliente/", será associada à função (controlador) consultarCliente no views.py. 
     # A chamada a essa função é views.consultarCliente

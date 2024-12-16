@@ -1,22 +1,36 @@
 {% extends "compra_ingressos/layout.html" %}
+
 {% block title %}
 Interface de Login
 {% endblock %}
+
 {% block content %}
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<h2>Interface de Login</h2>
 
-<form method="POST" class="realizarLogin-form" action="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <p>Por favor ingressar os seus dados de login:</p>
-    <br>
-    <label>Login (CPF):</label> <input type="text" id="cpfPessoa" name="cpfPessoa"> <br><br>
-    <label>Senha:</label> <input type="password" id="senhaConta" name="senhaConta"> <br><br>
-    <br><br>
-    <button type="submit" class="save btn btn-default">Fazer Login</button>
-</form>
+<!-- Exibe mensagem de login ou formulário -->
+{% if logado %}
+    <p>Bem-vindo, {{ usuario_nome }}!</p>
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="save btn btn-default">Logout</button>
+    </form>
+{% else %}
+    <!-- Mensagem de resposta (erro ou status) -->
+    {% if resposta %}
+        <p><strong>{{ resposta }}</strong></p>
+    {% endif %}
 
-<section>
-    <p type="text" id="resposta" name="resposta"> {{ resposta }} </p> <br><br>
-</section>
+    <form method="POST" class="realizarLogin-form" action="">
+        {% csrf_token %}
+        <p>Por favor, insira seus dados de login:</p>
+        <br>
+        <label for="cpfPessoa">Login (CPF):</label> 
+        <input type="text" id="cpfPessoa" name="cpfPessoa" required> 
+        <br><br>
+        <label for="senhaConta">Senha:</label> 
+        <input type="password" id="senhaConta" name="senhaConta" required> 
+        <br><br>
+        <button type="submit" class="save btn btn-default">Fazer Login</button>
+    </form>
+{% endif %}
 {% endblock %}

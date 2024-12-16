@@ -10,9 +10,16 @@ from django.core.exceptions import ObjectDoesNotExist
 from compra_ingressos_app.models import Jogo
 from compra_ingressos_app.models import Clube
 
+from compra_ingressos_app.decorators import gerente_required
 
+
+@gerente_required
 def novoJogo(request):
+    '''
+        Cadastra um novo jogo no sistema. Apenas gerentes podem acessar essa página.
+    '''
     if request.method == 'POST':
+        # Obtém dados do formulário
         nomeClubeCasa = request.POST['clubeCasa']
         nomeClubeFora = request.POST['clubeFora']
         data = request.POST['data']
@@ -35,18 +42,7 @@ def novoJogo(request):
             preco = float(preco)  # Converte pra float
             numero_cadeiras = int(numero_cadeiras)  # Converte pra int
 
-            '''jogo_existente = Jogo.objects.filter(
-                clubeCasa=clubeCasa,
-                clubeFora=clubeFora,
-                data=data,
-                hora=hora
-            ).exists()
-
-            if jogo_existente:
-                mensagem = "Jogo já cadastrado com os mesmos times e horário!"
-                context = {'resposta': mensagem}
-                return render(request, "compra_ingressos/novoJogo.html", context)'''
-            
+            # Cria o jogo
             jogo = Jogo(
                 clubeCasa=clubeCasa,
                 clubeFora=clubeFora,

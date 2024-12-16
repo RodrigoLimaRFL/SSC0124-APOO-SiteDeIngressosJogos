@@ -9,13 +9,18 @@ from django.utils import timezone
 from compra_ingressos_app.models import Usuario
 
 def criarConta(request):
+    '''
+        Cria uma nova conta de usuário no sistema. 
+    '''
     if request.method == 'POST':
+        # Obtém dados do formulário
         nome = request.POST.get('nomePessoa', '').strip()
         cpf = request.POST.get('cpfPessoa', '').strip()
         dateNasc = request.POST.get('birthdate', '').strip()
         telefone = request.POST.get('telefonePessoa', '').strip()
         email = request.POST.get('emailPessoa', '').strip()
         senha = request.POST.get('senhaConta', '').strip()
+        tipoUsuario = request.POST.get('tipoUsuario', '').strip()
 
         # Verificar campos vazios
         if not nome or not cpf or not dateNasc or not telefone or not email or not senha:
@@ -54,7 +59,14 @@ def criarConta(request):
             'resposta': mensagem
         }
 
-        user = Usuario(nome = nome, cpf = cpf, dateNasc = dateNasc, telefone = telefone, email = email, senha = senha)
+        # Cria o usuário
+        user = Usuario(nome = nome, 
+                       cpf = cpf, 
+                       dateNasc = dateNasc, 
+                       telefone = telefone, 
+                       email = email, 
+                       senha = senha, 
+                       tipoUsuario = tipoUsuario)
         user.registrarUser()
 
         return render(request, "compra_ingressos/criarConta.html", context)

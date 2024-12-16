@@ -5,6 +5,8 @@ from django.forms import CharField, Field
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password, check_password
 import datetime
 
 class Clube(models.Model):
@@ -70,17 +72,33 @@ class Jogo(models.Model):
 
 class Usuario(models.Model):
     nome = models.CharField(max_length=100)
-    cpf = models.CharField(unique = True, max_length=11) # Usado como id do usuário
+    cpf = models.CharField(unique=True, max_length=11)  # Usado como id do usuário
     dateNasc = models.DateField()
-    telefone = models.CharField(max_length=13) #format (61)992831235
+    telefone = models.CharField(max_length=13)  # format (61)992831235
     email = models.EmailField(max_length=100)
     senha = models.CharField(max_length=255)
+    tipoUsuario = models.IntegerField(default=0)  # 0 = usuario comum, 1 = gerente de clube
 
     # Métodos da classe
-
     def registrarUser(self):
-        #salvar no banco de dados
+        """Salva o usuário no banco de dados com senha criptografada."""
+        self.senha = make_password(self.senha)  # Criptografa a senha
         self.save()
+
+    @staticmethod
+    def autenticar(cpf, senha):
+        """
+        Verifica se o CPF e a senha fornecidos são válidos.
+        Retorna o usuário se as credenciais forem válidas, caso contrário, retorna False.
+        """
+        try:
+            usuario = Usuario.objects.get(cpf=cpf)
+            if check_password(senha, usuario.senha):  # Verifica a senha criptografada
+                return usuario
+            else:
+                return False
+        except Usuario.DoesNotExist:
+            return False
 
     def consultarCPF(cpf):
         try:

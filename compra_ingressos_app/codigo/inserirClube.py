@@ -8,8 +8,15 @@ from django.utils import timezone
 
 from compra_ingressos_app.models import Clube
 
+from compra_ingressos_app.decorators import gerente_required
+
+@gerente_required
 def novoClube(request):
+    '''
+        Cadastro de um novo clube no sistema. Apenas gerentes podem acessar essa página.
+    '''
     if request.method == 'POST':
+        # Obtém dados do formulário
         nomeClube = request.POST['nomeClube']
         divisao = request.POST['divisao']
         cidadeOrigem = request.POST['cidadeOrigem']
@@ -25,7 +32,10 @@ def novoClube(request):
             'resposta': mensagem
         }
 
-        clube = Clube(nomeClube = nomeClube, divisao = divisao, cidadeOrigem = cidadeOrigem)
+        # Cria o clube
+        clube = Clube(nomeClube = nomeClube, 
+                      divisao = divisao, 
+                      cidadeOrigem = cidadeOrigem)
         clube.registrarClube()
 
         return render(request, "compra_ingressos/novoClube.html", context)
