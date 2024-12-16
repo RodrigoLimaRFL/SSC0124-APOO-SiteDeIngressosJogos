@@ -30,6 +30,14 @@ class Clube(models.Model):
             return clube
         except ObjectDoesNotExist:
             return False
+        
+    @staticmethod
+    def doesClubeExist(nomeDoClube):
+        try:
+            clube = Clube.objects.get(nomeClube = nomeDoClube)
+            return True
+        except ObjectDoesNotExist:
+            return False
 
 #################################################################################################
 

@@ -21,6 +21,11 @@ def novoClube(request):
         divisao = request.POST['divisao']
         cidadeOrigem = request.POST['cidadeOrigem']
 
+        if (Clube.doesClubeExist(nomeClube)):
+            mensagem = "Erro! O clube já existe."
+            context = {'resposta': mensagem}
+            return render(request, "compra_ingressos/novoClube.html", context)
+
         mensagem = f'''
             Clube cadastrado com sucesso!
             Nome do clube: {nomeClube}
