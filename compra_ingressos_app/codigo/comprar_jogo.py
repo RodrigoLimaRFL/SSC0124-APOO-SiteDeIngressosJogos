@@ -6,7 +6,6 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.utils import timezone
 from compra_ingressos_app.models import Jogo, Usuario, RegistroCompra
-
 from compra_ingressos_app.decorators import usuario_normal_required
 
 
@@ -47,7 +46,7 @@ def comprarIngresso(request):
         momentoAtual = datetime.now()
 
         # Cria um registro de compra
-        registro = RegistroCompra(dataRegistro = momentoAtual.date(), horaRegistro = momentoAtual.time(), jogoCompra = jogo, precoCompra = 50)
+        registro = RegistroCompra(dataRegistro = momentoAtual.date(), horaRegistro = momentoAtual.time(), jogoCompra = jogo, precoCompra = jogo.preco)
         registro.salvarRegistro()
 
         mensagem = '''

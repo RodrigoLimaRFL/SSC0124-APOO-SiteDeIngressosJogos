@@ -68,54 +68,14 @@ def novoJogo(request):
             return render(request, "compra_ingressos/novoJogo.html", context)
         
         except ObjectDoesNotExist:
-            # If a club name doesn't match any entry
             mensagem = "Um dos clubes não existe. Verifique o nome dos clubes."
             context = {'resposta': mensagem}
             return render(request, "compra_ingressos/novoJogo.html", context)
 
         except ValueError as e:
-            # Handle invalid data (e.g., incorrect date or number format)
             mensagem = f"Erro ao cadastrar jogo: {e}. Por favor, verifique os dados inseridos."
             context = {'resposta': mensagem}
             return render(request, "compra_ingressos/novoJogo.html", context)
         
     else:
         return render(request, "compra_ingressos/novoJogo.html")
-
-        '''
-        # Consulta a existencia do jogo (n implementado)
-        jogo = Jogo.consultarJogo(clubeCasa, clubeFora, data, hora, estadio)
-        if jogo:
-            mensagem = f"Jogo já cadastrado!"
-            context = {
-                'resposta': mensagem
-            }
-            return render(request, "compra_ingressos/novoJogo.html", context)
-        
-        # Cria o jogo (n implementado)
-        jogo = Jogo(clubeCasa=clubeCasa, clubeFora=clubeFora, data=data, 
-                    hora = hora, preco=preco, estadio=estadio, numero_cadeiras=numero_cadeiras)
-        jogo.atualizarJogo()
-        
-        mensagem = f'''
-            #Jogo cadastrado com sucesso!
-            #Clube Casa: {nomeClubeCasa}
-            #Clube Fora: {nomeClubeFora}
-            #Data: {data}    
-            #Hora: {hora}
-            #Preço: {preco}
-            #Estádio: {estadio}
-            #Número de cadeiras: {numero_cadeiras}
-        '''
-
-        context = {
-            'resposta': mensagem
-        }
-
-        jogo = Jogo(clubeCasa = clubeCasa, clubeFora = clubeFora, data = data, hora = hora, preco = preco, estadio = estadio, numero_cadeiras = numero_cadeiras)
-        jogo.registrarJogo()
-
-        return render(request, "compra_ingressos/novoJogo.html", context)
-    else:
-        return render(request, "compra_ingressos/novoJogo.html")
-        '''
