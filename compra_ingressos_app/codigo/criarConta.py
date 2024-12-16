@@ -10,13 +10,26 @@ from compra_ingressos_app.models import Usuario
 
 def criarConta(request):
     if request.method == 'POST':
-        nome = request.POST['nomePessoa']
-        cpf = request.POST['cpfPessoa']
-        dateNasc = request.POST['birthdate']
-        telefone = request.POST['telefonePessoa']
-        email = request.POST['emailPessoa']
-        senha = request.POST['senhaConta']
+        nome = request.POST.get('nomePessoa', '').strip()
+        cpf = request.POST.get('cpfPessoa', '').strip()
+        dateNasc = request.POST.get('birthdate', '').strip()
+        telefone = request.POST.get('telefonePessoa', '').strip()
+        email = request.POST.get('emailPessoa', '').strip()
+        senha = request.POST.get('senhaConta', '').strip()
 
+        # Verificar campos vazios
+        if not nome or not cpf or not dateNasc or not telefone or not email or not senha:
+            mensagem = '''
+                Todos os campos devem ser preenchidos!
+            '''
+
+            context = {
+                'resposta': mensagem
+            }
+
+            return render(request, "compra_ingressos/criarConta.html", context)
+
+        # Verifica se já existe um usuário com o cpf informado
         if Usuario.consultarCPF(cpf):
             mensagem = '''
                 Já existe um usuário com este CPF.
